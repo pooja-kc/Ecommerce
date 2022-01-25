@@ -1,0 +1,16 @@
+.saved_wrapper{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.saved_wrapper h1{
+    margin: 30px auto;
+}
+.wrapp{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.saved{
+    color:red;
+}
