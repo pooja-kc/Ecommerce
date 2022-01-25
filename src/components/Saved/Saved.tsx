@@ -3,6 +3,7 @@ import "./Saved.css";
 import { MdBookmarkBorder } from "react-icons/md";
 import { connect } from "react-redux";
 import store from '../../redux/store'
+import Error from '../error/error';
 interface Props {
   products: {
     id: number;
@@ -21,6 +22,7 @@ function Saved({ products }: Props) {
   };
   return (
     <div className="saved_wrapper">
+      
       <h1>My Saves</h1>
       <div className="wrapp">
         {products.map(
@@ -62,13 +64,15 @@ function Saved({ products }: Props) {
 
 const mapStateToProps = (
   state: {
-    id: number;
-    img: string;
-    saved: boolean;
-  }[]
+    allProducts:{
+      id: number;
+      img: string;
+      saved: boolean;
+  }[],
+  }
 ) => {
   return {
-    products: state,
+    products: state.allProducts,
   };
 };
 

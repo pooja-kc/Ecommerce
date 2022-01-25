@@ -3,6 +3,8 @@ import "./Product.css";
 import store from "../../redux/store";
 import { MdBookmarkBorder } from "react-icons/md";
 import { connect } from "react-redux";
+import {productAdded} from '../../redux/actions'
+
 
 interface Props {
   products:{
@@ -15,10 +17,7 @@ interface Props {
 
 function Product({products}:Props) {
 
-  const handleClick = (value:number) => () => {console.log(value); store.dispatch({
-    type:'productsSaved',
-    payload:{id:value}
-  })}
+  const handleClick = (value:number) => () => {console.log(value); store.dispatch(productAdded(value))}
 
   return (
     <div className="product_wrapper">
@@ -51,13 +50,15 @@ function Product({products}:Props) {
 }
 
 
-const mapStateToProps = (state:{
-  id: number;
-  img: string;
-  saved: boolean;
-}[]) => {
+const mapStateToProps = (  state: {
+  allProducts:{
+    id: number;
+    img: string;
+    saved: boolean;
+}[],
+}) => {
   return {
-    products: state,
+    products: state.allProducts,
   };
 };
 
