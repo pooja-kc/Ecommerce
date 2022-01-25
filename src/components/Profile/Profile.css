@@ -1,0 +1,13 @@
+.profile_wrap img{
+    width: 300px;
+}
+.profile_wrap{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap:100px;
+}
+.product_wrapper{
+    display: flex;
+    flex-wrap: wrap;
+}
