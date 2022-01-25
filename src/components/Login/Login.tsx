@@ -1,9 +1,11 @@
-import React from "react";
+
 import "./Login.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import svg from '../../assests/undraw_save_to_bookmarks_re_8ajf.svg';
-
+import {currentUserAdded, userAdded} from '../../redux/actions';
+import store from "../../redux/store";
+import React, { Component, MouseEvent } from 'react';
 
 
 
@@ -15,39 +17,44 @@ export default function Login() {
   const [address, setaddress] = useState("");
   const [password, setpassword] = useState("");
   const [confirmPassword, setconfirmPassword] = useState("");
-  const [errors, seterrors] = useState([]);
+  const [errors, seterrors] = useState<string[]>([ ]);
   const [isLogin, setisLogin] = useState(false);
 
-  function Submit() {
-    // store.dispatch(userSignedUp({ name, email, address, password }));
-    // store.dispatch(addedCurrentUser({ name, email, address, password }));
-    // navigate("/");
+  function Submit(e:MouseEvent) {
+    e.preventDefault();
+    console.log(name, email);
+    store.dispatch(userAdded({ name, email, address, password }));
+    store.dispatch(currentUserAdded({ name, email, address}));
+    navigate("/");
   }
 
 
-  // function submitSignUp(e) {
-  //   e.preventDefault();
-  //   if(!isLogin){
-  //   let isPresent = false;
-  //   const Data = [...store.getState().reducer];
-  //   Data.forEach((ele) => {
-  //     if (ele.user.name === name) isPresent = true;
-  //   });
-  //   isPresent &&  alert("already present");
-  //   validateS() && !isPresent && Submit();
-  // }
-  // else{
-  //   let isPresent=false;
-  //   const Data = [...store.getState().reducer];
-  //   validateL();
-  //   Data.forEach((ele) => {
-  //     if(ele.user.email === email && ele.user.password !== password) {seterrors(["incorrect password"]); isPresent= true;}
-  //     if (ele.user.email === email && ele.user.password === password)  navigate("/");
+  function submitSignUp(e:MouseEvent) {
+    e.preventDefault();
+    console.log("errors", errors);
+  
+    if(!isLogin){
+    let isPresent = false;
+    const Data = [...store.getState().allUsers];
+    console.log('data', Data);
+    Data.forEach((ele) => {
+      if (ele.email === email) isPresent = true;
+    });
+    isPresent &&  alert("already present");
+    validateS() && !isPresent && Submit(e);
+  }
+  else{
+    let isPresent=false;
+    const Data = [...store.getState().allUsers];
+    validateL();
+    Data.forEach((ele) => {
+      if(ele.email === email && ele.password !== password) {seterrors(["incorrect password"]); isPresent= true;}
+      if (ele.email === email && ele.password === password)  navigate("/");
      
-  //   });
-  //   if(!isPresent) seterrors(['user not registered']);
-  // }
-  // }
+    });
+    if(!isPresent) seterrors(['user not registered']);
+  }
+  }
 
 
   function validateS() {
@@ -76,7 +83,7 @@ export default function Login() {
     if (password && confirmPassword && password !== confirmPassword) {
       errorMsg.push("Passwords doen't match");
     }
-    // seterrors([...errorMsg]);
+    seterrors([...errorMsg]);
     return errorMsg.length ? false : true;
   }
   function validateL() {
@@ -94,7 +101,7 @@ export default function Login() {
         "Passwords should have at least one uppercase letter, numbers and a special character"
       );
     }
-    // seterrors([...errorMsg]);
+    seterrors([...errorMsg]);
     return true;
   }
 
@@ -175,7 +182,7 @@ export default function Login() {
           <div className="button_wrap">
             {" "}
             <div className="login-button">
-              <button id="Login_Button" type="submit" >
+              <button id="Login_Button" type="submit" onClick={submitSignUp}>
                 {!isLogin ? "Sign-Up" : "Log-In"}
               </button>
             </div>
