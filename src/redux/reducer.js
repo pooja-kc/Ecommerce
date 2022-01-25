@@ -44,3 +44,18 @@ export function currentUser(state=[], action){
             return state
     }
 }
+export function cart(state=products, action){
+    console.log("cart", state);
+    switch (action.type) {
+        case actions.PRODUCT_ADDED:
+            return state.map(product => product.id !== action.payload.id ? product: {...product, quantity:++product.quantity})
+        case actions.PRODUCT_REMOVED:
+            return state.map(product => product.id !== action.payload.id ? product: {...product, quantity:--product.quantity})
+        case actions.PRODUCT_CLEARED:
+            return state.map(product => product.id !== action.payload.id ? product: {...product, quantity:0})
+
+    
+        default:
+            return state
+    }
+}

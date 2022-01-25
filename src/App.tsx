@@ -40,7 +40,7 @@ function App() {
             </li>
             <li>
             <Link to="/save">
-            <div className='badget2'>2</div>
+            <div className='badget2'>1</div>
             <MdBookmarkBorder />
             </Link>
             </li>

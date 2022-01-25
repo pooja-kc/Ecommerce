@@ -27,3 +27,29 @@ export function currentUserAdded(user){
         }
     }
 }
+export function productAddedToCart(product){
+    return{
+        type: actions.PRODUCT_ADDED,
+        payload:{
+            id: product
+        }
+    }
+}
+export function productRemovedFromCart(product){
+    console.log("from remove", product)
+    return{
+        
+        type: actions.PRODUCT_REMOVED,
+        payload:{
+            id:product,
+        }
+    }
+}
+export function productClearedFromCart(product){
+    return{
+        type: actions.PRODUCT_CLEARED,
+        payload:{
+            id:product
+        }
+    }
+}

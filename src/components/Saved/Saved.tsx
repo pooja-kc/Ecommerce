@@ -4,21 +4,26 @@ import { MdBookmarkBorder } from "react-icons/md";
 import { connect } from "react-redux";
 import store from '../../redux/store'
 import Error from '../error/error';
+import { productAdded ,productAddedToCart} from "../../redux/actions";
+
 interface Props {
   products: {
     id: number;
     img: string;
     saved: boolean;
+    price: number;
   }[];
 }
 
 function Saved({ products }: Props) {
   const handleClick = (value: number) => () => {
     console.log(value);
-    store.dispatch({
-      type: "productsSaved",
-      payload: { id: value },
-    });
+    store.dispatch(productAdded(value));
+  };
+  const addToCart =
+  (id:number) => () => {
+    store.dispatch(productAddedToCart(id));
+    store.dispatch(productAdded(id));
   };
   return (
     <div className="saved_wrapper">
@@ -42,7 +47,7 @@ function Saved({ products }: Props) {
                       Similique, consequuntur.
                     </p>
                   </div>
-                  <div className="btn">
+                  <div className="btn" onClick={addToCart(products[index].id)}>
                     <button>
                       <a>Add to Cart</a>
                     </button>
@@ -53,6 +58,7 @@ function Saved({ products }: Props) {
                       <MdBookmarkBorder />
                     </div>
                   </div>
+                  <div className="price">Rs {products[index].price} </div>
                 </div>
               </div>
             )
@@ -68,6 +74,7 @@ const mapStateToProps = (
       id: number;
       img: string;
       saved: boolean;
+      price: number;
   }[],
   }
 ) => {
