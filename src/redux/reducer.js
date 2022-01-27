@@ -53,6 +53,8 @@ export function cart(state=products, action){
             return state.map(product => product.id !== action.payload.id ? product: {...product, quantity:--product.quantity})
         case actions.PRODUCT_CLEARED:
             return state.map(product => product.id !== action.payload.id ? product: {...product, quantity:0})
+        case actions.CART_CLEARED:
+            return state.map(product => product.quantity === 0 ? product: {...product, quantity:0});
 
     
         default:

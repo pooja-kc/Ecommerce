@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Cart.css";
 import products from "../Products/products";
 import { MdBookmark } from "react-icons/md";
 import { BiTrash } from "react-icons/bi";
 import { connect, useStore } from "react-redux";
 import store from "../../redux/store";
-import {productAddedToCart,productRemovedFromCart,productClearedFromCart,productAdded} from "../../redux/actions";
+import {productAddedToCart,productRemovedFromCart,productClearedFromCart,productAdded, cartCleared} from "../../redux/actions";
 
 interface Props {
   products: {
@@ -16,11 +16,15 @@ interface Props {
     quantity: number;
     title: string;
   }[];
+  allProducts: {
+    id: number;
+    img: string;
+    saved: boolean;
+    price: number;
+  }[];
 }
 
-function Cart({products}:Props) {
-
-
+function Cart({products, allProducts}:Props) {
     const removeFromCart = (value: number) => () => {
         console.log(value);
         store.dispatch(productRemovedFromCart(value));
@@ -32,6 +36,9 @@ function Cart({products}:Props) {
       const clearFromCart = (value: number) => () => {
         console.log(value);
         store.dispatch(productClearedFromCart(value));
+      };
+      const clearCart =() => {
+        store.dispatch(cartCleared());
       };
       const handleClick = (value: number) => () => {
         console.log(value);
@@ -51,6 +58,7 @@ function Cart({products}:Props) {
           })
           return count;
       }
+      
  
   return (
     <div className="cart_wrapper">
@@ -89,7 +97,7 @@ function Cart({products}:Props) {
       <div className="cart_footer">
         {" "}
         <h1>Total Price: ₹ {getCartLength().cost}</h1>
-        <h3> Clear Cart</h3>
+        <h3  onClick={clearCart}> Clear Cart</h3>
         <h3> Proceed to Buy</h3>
       </div>
     </div>
@@ -105,9 +113,16 @@ const mapStateToProps = (state: {
     quantity: number;
     title: string;
   }[];
+  allProducts: {
+    id: number;
+    img: string;
+    saved: boolean;
+    price: number;
+  }[];
 }) => {
   return {
     products: state.cart,
+    allProducts: state.allProducts
   };
 };
 

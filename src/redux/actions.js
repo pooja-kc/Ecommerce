@@ -53,3 +53,8 @@ export function productClearedFromCart(product){
         }
     }
 }
+export function cartCleared(){
+    return{
+        type: actions.CART_CLEARED,
+    }
+}

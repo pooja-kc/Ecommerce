@@ -75,7 +75,7 @@ const mapStateToProps = (
       img: string;
       saved: boolean;
       price: number;
-  }[],
+  }[];
   }
 ) => {
   return {
