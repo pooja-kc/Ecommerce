@@ -11,11 +11,42 @@ import { FaCartPlus} from "react-icons/fa";
 import { MdBookmarkBorder } from "react-icons/md";
 import store from './redux/store';
 import error from './components/error/error';
+import { connect, useStore } from "react-redux";
+
+
+interface Props {
+  products: {
+    id: number;
+    img: string;
+    saved: boolean;
+    price: number;
+    quantity: number;
+    title: string;
+  }[];
+  allProducts: {
+    id: number;
+    img: string;
+    saved: boolean;
+    price: number;
+  }[];
+}
 
 
 
-function App() {
-  console.log('store:', store.getState());
+function App({products, allProducts}:Props) {
+  function getCartLength(){
+    let count={
+        cart:0,
+        saved:0,
+    };
+    products.map((ele)=>{
+          (ele.quantity>0) && ++count.cart;
+    })
+    allProducts.map((ele)=>{
+      (ele.saved) && ++count.saved;
+    })
+    return count;
+}
   return (
     <div className="App">
       <header className="App-header">
@@ -34,13 +65,13 @@ function App() {
           </li>
           <li>
           <Link to="/cart">
-            <div className='badget1'>1</div>
+            {(getCartLength().saved)?<div className='badget1'>{getCartLength().saved}</div>: ''}
             <FaCartPlus />
             </Link>
             </li>
             <li>
             <Link to="/save">
-            <div className='badget2'>2</div>
+            {(getCartLength().cart)? <div className='badget2'>{getCartLength().cart}</div>: ''}
             <MdBookmarkBorder />
             </Link>
             </li>
@@ -62,4 +93,26 @@ function App() {
   );
 }
 
-export default App;
+const mapStateToProps = (state: {
+  cart: {
+    id: number;
+    img: string;
+    saved: boolean;
+    price: number;
+    quantity: number;
+    title: string;
+  }[];
+  allProducts: {
+    id: number;
+    img: string;
+    saved: boolean;
+    price: number;
+  }[];
+}) => {
+  return {
+    products: state.cart,
+    allProducts: state.allProducts
+  };
+};
+
+export default connect(mapStateToProps)(App);

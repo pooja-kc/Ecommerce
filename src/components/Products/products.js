@@ -12,18 +12,18 @@ import img11 from '../../assests/image11.jpeg';
 import img12 from '../../assests/image12.jpeg';
 
  const products=[
-     {id:0, img: img1, saved:false},
-     {id:1, img: img2, saved:false},
-     {id:2, img: img3, saved:false},
-     {id:3, img: img4, saved:false},
-     {id:4, img: img5, saved:false},
-     {id:5, img: img6, saved:false},
-     {id:6, img: img7, saved:false},
-     {id:7, img: img8, saved:false},
-     {id:8, img: img9, saved:false},
-     {id:9, img: img10, saved:false},
-     {id:10, img: img11, saved:false},
-     {id:11, img: img12, saved:false},
+     {id:0, img: img1, price:3000 ,saved:false, quantity:0, title:'title'},
+     {id:1, img: img2, price:290 ,saved:false, quantity:0, title: 'title'},
+     {id:2, img: img3, price:300 ,saved:false  , quantity:0, title:'title'},
+     {id:3, img: img4, price:5500 ,saved:false , quantity:0, title:'title'},
+     {id:4, img: img5, price:4500 ,saved:false , quantity:0, title:'title'},
+     {id:5, img: img6, price:800 ,saved:false , quantity:0, title:'title'},
+     {id:6, img: img7, price:2700 ,saved:false , quantity:0, title:'title'},
+     {id:7, img: img8, price:3030 ,saved:false , quantity:0, title:'title'},
+     {id:8, img: img9, price:700 ,saved:false , quantity:0, title:'title'},
+     {id:9, img: img10, price:6000 ,saved:false , quantity:0, title:'title'},
+     {id:10, img: img11, price:30670 ,saved:false , quantity:0, title:'title'},
+     {id:11, img: img12, price:6780 ,saved:false , quantity:0, title:'title'},
 ]
 
 export default products;
