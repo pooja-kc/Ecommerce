@@ -52,13 +52,13 @@ function App({products, allProducts}:Props) {
       <header className="App-header">
         <Router>
       <div className="navbar">
-        <div className="Logo">  <Link to="/"><h5> Ecommerce </h5></Link></div>
+        <div className="Logo">  <Link to="/home"><h5> Ecommerce </h5></Link></div>
         <div className="links">
           <li>
-            <Link to="/">Home</Link>
+            <Link to="/home">Home</Link>
           </li>
           <li>
-            <Link to="/login" >Logout</Link>
+            <Link to="/" >Logout</Link>
           </li>
           <li>
             <Link to="/profile">Profile</Link>
@@ -80,8 +80,8 @@ function App({products, allProducts}:Props) {
       </div>
 
       <Routes>
-        <Route  path="/" element={<Product />} />
-        <Route  path="/login" element={<Login />} />
+        <Route  path="/home" element={<Product />} />
+        <Route  path="/" element={<Login />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/save" element={<Saved />} />
         <Route path="/Profile" element={<Profile />} />
